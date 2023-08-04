@@ -22,9 +22,6 @@ class DoctorController extends Controller
     ) {
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): JsonResponse
     {
         try {
@@ -32,6 +29,26 @@ class DoctorController extends Controller
                 Response::HTTP_OK,
                 'Lista de Médicos obtida com sucesso',
                 $this->doctorService->getAll()->toArray()
+            );
+        } catch (\Exception $e) {
+            return $this->controllerHelper->errorJsonResponse(
+                Response::HTTP_BAD_REQUEST,
+                sprintf('Ocorreu um erro - %s.', $e->getMessage())
+            );
+        }
+    }
+
+    public function store(\App\Http\Requests\StoreDoctorRequest $request): JsonResponse
+    {
+        try {
+            return $this->controllerHelper->successJsonResponse(
+                Response::HTTP_CREATED,
+                'Médico criado com sucesso!',
+                $this->doctorService->store(
+                    $request['nome'],
+                    $request['especialidade'],
+                    $request['cidade_id']
+                )
             );
         } catch (\Exception $e) {
             return $this->controllerHelper->errorJsonResponse(
@@ -72,29 +89,6 @@ class DoctorController extends Controller
                     'doctor' => $this->doctorService->getById($doctor->getId()),
                     'patient' => $this->patientService->getById($request['paciente_id']),
                 ]
-            );
-        } catch (\Exception $e) {
-            return $this->controllerHelper->errorJsonResponse(
-                Response::HTTP_BAD_REQUEST,
-                sprintf('Ocorreu um erro - %s.', $e->getMessage())
-            );
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(\App\Http\Requests\StoreDoctorRequest $request): JsonResponse
-    {
-        try {
-            return $this->controllerHelper->successJsonResponse(
-                Response::HTTP_CREATED,
-                'Médico criado com sucesso!',
-                $this->doctorService->store(
-                    $request['nome'],
-                    $request['especialidade'],
-                    $request['cidade_id']
-                )
             );
         } catch (\Exception $e) {
             return $this->controllerHelper->errorJsonResponse(

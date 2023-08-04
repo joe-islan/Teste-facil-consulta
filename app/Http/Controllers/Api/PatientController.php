@@ -17,16 +17,6 @@ class PatientController extends Controller
     ) {
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(\App\Http\Requests\StorePatientRequest $request): JsonResponse
     {
         try {
@@ -47,16 +37,6 @@ class PatientController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Patient $patient)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(\App\Http\Requests\UpdatePatientRequest $request, Patient $patient): JsonResponse
     {
         try {
@@ -80,12 +60,5 @@ class PatientController extends Controller
                 sprintf('Ocorreu um erro - %s.', $e->getMessage())
             );
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Patient $patient)
-    {
     }
 }
