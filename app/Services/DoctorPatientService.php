@@ -24,6 +24,10 @@ class DoctorPatientService
             throw new \Exception('Paciente não encontrado');
         }
 
+        if ($this->doctorPatientDataAccessor->exists($patient, $doctor)) {
+            throw new \Exception('O Paciente já foi vinculado com este médico');
+        }
+
         return $this->doctorPatientDataAccessor->create(
             $doctor,
             $patient

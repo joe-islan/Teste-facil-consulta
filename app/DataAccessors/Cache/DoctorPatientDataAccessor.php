@@ -14,6 +14,11 @@ class DoctorPatientDataAccessor implements DoctorPatientDataAccessorInterface
     ) {
     }
 
+    public function exists(Patient $patient, Doctor $doctor): bool
+    {
+        return $this->dataAccessor->exists($patient, $doctor);
+    }
+
     public function create(
         Doctor $doctor,
         Patient $patient

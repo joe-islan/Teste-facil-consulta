@@ -9,6 +9,14 @@ use App\Models\Patient;
 
 class DoctorPatientDataAccessor implements DoctorPatientDataAccessorInterface
 {
+    public function exists(Patient $patient, Doctor $doctor): bool
+    {
+        return DoctorPatient::where([
+            ['patient_id', $patient->id],
+            ['doctor_id', $doctor->id],
+        ])->exists();
+    }
+
     public function create(
         Doctor $doctor,
         Patient $patient

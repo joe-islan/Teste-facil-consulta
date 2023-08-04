@@ -8,6 +8,8 @@ use App\Models\Patient;
 
 interface DoctorPatientDataAccessorInterface extends DataAccessorInterface
 {
+    public function exists(Patient $patient, Doctor $doctor): bool;
+
     public function create(
         Doctor $doctor,
         Patient $patient
